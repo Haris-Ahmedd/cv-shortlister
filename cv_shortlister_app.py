@@ -26,11 +26,14 @@ def extract_text_from_docx(file_path):
 # Function to match keywords in text
 def match_keywords(text, keywords: List[str]):
     matched = []
+    # Normalize text with proper word splitting
+    text_lower = text.lower()
+    words = re.findall(r'\b\w+\b', text_lower)  # splits full text into words
     for kw in keywords:
-        pattern = r'\b' + re.escape(kw.lower()) + r'\b'
-        if re.search(pattern, text.lower()):
+        if kw.lower() in words:
             matched.append(kw)
     return matched
+
 
 
 
