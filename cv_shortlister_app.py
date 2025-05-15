@@ -25,12 +25,14 @@ def extract_text_from_docx(file_path):
 
 # Function to match keywords in text
 def match_keywords(text, keywords: List[str]):
-    text = text.lower()
     matched = []
     for kw in keywords:
-        if kw.lower() in text:
+        pattern = r'\b' + re.escape(kw.lower()) + r'\b'
+        if re.search(pattern, text.lower()):
             matched.append(kw)
     return matched
+
+
 
 # File uploader
 uploaded_files = st.file_uploader("Upload CVs (PDF or DOCX)", type=["pdf", "docx"], accept_multiple_files=True)
